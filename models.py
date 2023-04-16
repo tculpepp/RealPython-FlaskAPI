@@ -35,7 +35,7 @@ class Person(db.Model):
 
     # defines the last name field with a string value. This field must 
     # be unique because you’re using lname as the identifier for a person in a REST API URL.
-    lname = db.Column(db.String(32), unique=True)
+    lname = db.Column(db.String(32), nullable=False) # Remove: unique=True
     fname = db.Column(db.String(32)) #defines the first name field with a string value.
 
     # define a timestamp field with a datetime value.
