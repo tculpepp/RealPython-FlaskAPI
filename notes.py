@@ -1,9 +1,8 @@
-# notes.py
-
 from flask import abort, make_response
 
 from config import db
 from models import Note, Person, note_schema
+
 
 def read_one(note_id):
     note = Note.query.get(note_id)
@@ -11,9 +10,8 @@ def read_one(note_id):
     if note is not None:
         return note_schema.dump(note)
     else:
-        abort(
-            404, f"Note with ID {note_id} not found"
-        )
+        abort(404, f"Note with ID {note_id} not found")
+
 
 def update(note_id, note):
     existing_note = Note.query.get(note_id)
@@ -27,6 +25,7 @@ def update(note_id, note):
     else:
         abort(404, f"Note with ID {note_id} not found")
 
+
 def delete(note_id):
     existing_note = Note.query.get(note_id)
 
@@ -36,6 +35,7 @@ def delete(note_id):
         return make_response(f"{note_id} successfully deleted", 204)
     else:
         abort(404, f"Note with ID {note_id} not found")
+
 
 def create(note):
     person_id = note.get("person_id")
@@ -47,7 +47,4 @@ def create(note):
         db.session.commit()
         return note_schema.dump(new_note), 201
     else:
-        abort(
-            404,
-            f"Person not found for ID: {person_id}"
-        )
+        abort(404, f"Person not found for ID: {person_id}")

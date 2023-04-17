@@ -1,5 +1,3 @@
-# swagger.yml
-
 openapi: 3.0.0
 info:
   title: "RP Flask REST API"
@@ -12,8 +10,8 @@ servers:
 components:
   schemas:
     Person:
-      type: "object" #The data type of the schema
-      required: #The required properties
+      type: "object"
+      required:
         - lname
       properties:
         fname:
@@ -32,18 +30,18 @@ components:
       name: "note_id"
       description: "ID of the note"
       in: path
-      required: true
+      required: True
       schema:
         type: "string"
 
 paths:
-  /people: #The relative URL of your API endpoint
-    get: #The HTTP method that this URL endpoint will respond to
-      operationId: "people.read_all" #The Python function that’ll respond to the request
-      tags: #The tags assigned to this endpoint, which allow you to group the operations in the UI
+  /people:
+    get:
+      operationId: "people.read_all"
+      tags:
         - "People"
-      summary: "Read the list of people" #The UI display text for this endpoint
-      responses: #The status codes that the endpoint responds with
+      summary: "Read the list of people"
+      responses:
         "200":
           description: "Successfully read people list"
     post:
@@ -52,13 +50,13 @@ paths:
         - People
       summary: "Create a person"
       requestBody:
-          description: "Person to create"
-          required: True
-          content:
-            application/json:
-              schema:
-                x-body-name: "person"
-                $ref: "#/components/schemas/Person"
+        description: "Person to create"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "person"
+              $ref: "#/components/schemas/Person"
       responses:
         "201":
           description: "Successfully created person"
@@ -106,18 +104,18 @@ paths:
         - Notes
       summary: "Create a note associated with a person"
       requestBody:
-          description: "Note to create"
-          required: True
-          content:
-            application/json:
-              schema:
-                x-body-name: "note"
-                type: "object"
-                properties:
-                  person_id:
-                    type: "string"
-                  content:
-                    type: "string"
+        description: "Note to create"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "note"
+              type: "object"
+              properties:
+                person_id:
+                  type: "string"
+                content:
+                  type: "string"
       responses:
         "201":
           description: "Successfully created a note"
